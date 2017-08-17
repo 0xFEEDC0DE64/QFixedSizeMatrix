@@ -29,4 +29,4 @@ HEADERS += fixedsizematrix.h
 
 SOURCES += tst_qfixedsizematrixtest.cpp
 
-DEFINES += SRCDIR=\\\"$$PWD/\\\"
+DISTFILES += README.md
