@@ -21,43 +21,76 @@ private Q_SLOTS:
     void rotate180Test();
 
 private:
-    static const std::array<std::array<TestEnum, 2>, 4> demoData;
-    static const std::array<std::array<TestEnum, 4>, 2> demoDataRotatedLeft;
-    static const std::array<std::array<TestEnum, 4>, 2> demoDataRotatedRight;
-    static const std::array<std::array<TestEnum, 2>, 4> demoDataRotated180;
+    static const std::array<std::array<TestEnum, 2>, 4> demoData2x4;
+    static const std::array<std::array<TestEnum, 4>, 2> demoData2x4RotatedLeft;
+    static const std::array<std::array<TestEnum, 4>, 2> demoData2x4RotatedRight;
+    static const std::array<std::array<TestEnum, 2>, 4> demoData2x4Rotated180;
+
+    static const std::array<std::array<TestEnum, 4>, 4> demoData4x4;
+    static const std::array<std::array<TestEnum, 4>, 4> demoData4x4RotatedLeft;
+    static const std::array<std::array<TestEnum, 4>, 4> demoData4x4RotatedRight;
+    static const std::array<std::array<TestEnum, 4>, 4> demoData4x4Rotated180;
 
     template<unsigned int width, unsigned int height>
-    void verifyToDemoData(const FixedSizeMatrix<TestEnum, width, height>& matrix,
+    void verifyData(const FixedSizeMatrix<TestEnum, width, height>& matrix,
                           const std::array<std::array<QFixedSizeMatrixTest::TestEnum, width>, height> &data);
 };
 
-const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 2>, 4> QFixedSizeMatrixTest::demoData {
+const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 2>, 4> QFixedSizeMatrixTest::demoData2x4 {
     std::array<TestEnum, 2> { TestEnum::ONE, TestEnum::ONE },
     std::array<TestEnum, 2> { TestEnum::TWO, TestEnum::TWO },
     std::array<TestEnum, 2> { TestEnum::THREE, TestEnum::THREE },
     std::array<TestEnum, 2> { TestEnum::FOUR, TestEnum::FOUR }
 };
 
-const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 4>, 2> QFixedSizeMatrixTest::demoDataRotatedLeft {
+const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 4>, 2> QFixedSizeMatrixTest::demoData2x4RotatedLeft {
     std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::TWO, TestEnum::THREE, TestEnum::FOUR },
     std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::TWO, TestEnum::THREE, TestEnum::FOUR }
 };
 
-const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 4>, 2> QFixedSizeMatrixTest::demoDataRotatedRight {
+const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 4>, 2> QFixedSizeMatrixTest::demoData2x4RotatedRight {
     std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::THREE, TestEnum::TWO, TestEnum::ONE },
     std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::THREE, TestEnum::TWO, TestEnum::ONE }
 };
 
-const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 2>, 4> QFixedSizeMatrixTest::demoDataRotated180 {
+const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 2>, 4> QFixedSizeMatrixTest::demoData2x4Rotated180 {
     std::array<TestEnum, 2> { TestEnum::FOUR, TestEnum::FOUR },
     std::array<TestEnum, 2> { TestEnum::THREE, TestEnum::THREE },
     std::array<TestEnum, 2> { TestEnum::TWO, TestEnum::TWO },
     std::array<TestEnum, 2> { TestEnum::ONE, TestEnum::ONE }
 };
 
+const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 4>, 4> QFixedSizeMatrixTest::demoData4x4 {
+    std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::ONE, TestEnum::ONE, TestEnum::ONE },
+    std::array<TestEnum, 4> { TestEnum::TWO, TestEnum::TWO, TestEnum::TWO, TestEnum::TWO },
+    std::array<TestEnum, 4> { TestEnum::THREE, TestEnum::THREE, TestEnum::THREE, TestEnum::THREE },
+    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::FOUR, TestEnum::FOUR, TestEnum::FOUR }
+};
+
+const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 4>, 4> QFixedSizeMatrixTest::demoData4x4RotatedLeft {
+    std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::TWO, TestEnum::THREE, TestEnum::FOUR },
+    std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::TWO, TestEnum::THREE, TestEnum::FOUR },
+    std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::TWO, TestEnum::THREE, TestEnum::FOUR },
+    std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::TWO, TestEnum::THREE, TestEnum::FOUR }
+};
+
+const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 4>, 4> QFixedSizeMatrixTest::demoData4x4RotatedRight {
+    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::THREE, TestEnum::TWO, TestEnum::ONE },
+    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::THREE, TestEnum::TWO, TestEnum::ONE },
+    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::THREE, TestEnum::TWO, TestEnum::ONE },
+    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::THREE, TestEnum::TWO, TestEnum::ONE }
+};
+
+const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 4>, 4> QFixedSizeMatrixTest::demoData4x4Rotated180 {
+    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::FOUR, TestEnum::FOUR, TestEnum::FOUR },
+    std::array<TestEnum, 4> { TestEnum::THREE, TestEnum::THREE, TestEnum::THREE, TestEnum::THREE },
+    std::array<TestEnum, 4> { TestEnum::TWO, TestEnum::TWO, TestEnum::TWO, TestEnum::TWO },
+    std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::ONE, TestEnum::ONE, TestEnum::ONE }
+};
+
 template<unsigned int width, unsigned int height>
-void QFixedSizeMatrixTest::verifyToDemoData(const FixedSizeMatrix<QFixedSizeMatrixTest::TestEnum, width, height> &matrix,
-                                   const std::array<std::array<QFixedSizeMatrixTest::TestEnum, width>, height> &data)
+void QFixedSizeMatrixTest::verifyData(const FixedSizeMatrix<QFixedSizeMatrixTest::TestEnum, width, height> &matrix,
+                                      const std::array<std::array<QFixedSizeMatrixTest::TestEnum, width>, height> &data)
 {
     for(unsigned int y = 0; y < height; y++)
         for(unsigned int x = 0; x < width; x++)
@@ -66,75 +99,75 @@ void QFixedSizeMatrixTest::verifyToDemoData(const FixedSizeMatrix<QFixedSizeMatr
 
 void QFixedSizeMatrixTest::constructorTest()
 {
-    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData);
-    verifyToDemoData(matrix, demoData);
+    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData2x4);
+    verifyData(matrix, demoData2x4);
 }
 
 void QFixedSizeMatrixTest::assignmentTest()
 {
-    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData);
+    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData2x4);
     FixedSizeMatrix<TestEnum, 2, 4> other;
     other = matrix;
-    verifyToDemoData(other, demoData);
+    verifyData(other, demoData2x4);
 }
 
 void QFixedSizeMatrixTest::comparisonTest()
 {
-    FixedSizeMatrix<TestEnum, 2, 4> matrix0(demoData);
+    FixedSizeMatrix<TestEnum, 2, 4> matrix0(demoData2x4);
     FixedSizeMatrix<TestEnum, 2, 4> matrix1;
 
     QVERIFY2(matrix0 != matrix1, "");
 
-    matrix1 = FixedSizeMatrix<TestEnum, 2, 4> { demoData };
+    matrix1 = FixedSizeMatrix<TestEnum, 2, 4> { demoData2x4 };
 
     QVERIFY2(matrix0 == matrix1, "");
 }
 
 void QFixedSizeMatrixTest::rotateLeftTest()
 {
-    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData);
+    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData2x4);
     FixedSizeMatrix<TestEnum, 4, 2> rotatedContainer;
 
-    rotatedContainer = matrix.rotatedLeft();
-    verifyToDemoData(rotatedContainer, demoDataRotatedLeft);
+    rotatedContainer = matrix.asRotatedLeft();
+    verifyData(rotatedContainer, demoData2x4RotatedLeft);
 
-    matrix = rotatedContainer.rotatedLeft();
-    verifyToDemoData(matrix, demoDataRotated180);
+    matrix = rotatedContainer.asRotatedLeft();
+    verifyData(matrix, demoData2x4Rotated180);
 
-    rotatedContainer = matrix.rotatedLeft();
-    verifyToDemoData(rotatedContainer, demoDataRotatedRight);
+    rotatedContainer = matrix.asRotatedLeft();
+    verifyData(rotatedContainer, demoData2x4RotatedRight);
 
-    matrix = rotatedContainer.rotatedLeft();
-    verifyToDemoData(matrix, demoData);
+    matrix = rotatedContainer.asRotatedLeft();
+    verifyData(matrix, demoData2x4);
 }
 
 void QFixedSizeMatrixTest::rotateRightTest()
 {
-    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData);
+    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData2x4);
     FixedSizeMatrix<TestEnum, 4, 2> rotatedContainer;
 
-    rotatedContainer = matrix.rotatedRight();
-    verifyToDemoData(rotatedContainer, demoDataRotatedRight);
+    rotatedContainer = matrix.asRotatedRight();
+    verifyData(rotatedContainer, demoData2x4RotatedRight);
 
-    matrix = rotatedContainer.rotatedRight();
-    verifyToDemoData(matrix, demoDataRotated180);
+    matrix = rotatedContainer.asRotatedRight();
+    verifyData(matrix, demoData2x4Rotated180);
 
-    rotatedContainer = matrix.rotatedRight();
-    verifyToDemoData(rotatedContainer, demoDataRotatedLeft);
+    rotatedContainer = matrix.asRotatedRight();
+    verifyData(rotatedContainer, demoData2x4RotatedLeft);
 
-    matrix = rotatedContainer.rotatedRight();
-    verifyToDemoData(matrix, demoData);
+    matrix = rotatedContainer.asRotatedRight();
+    verifyData(matrix, demoData2x4);
 }
 
 void QFixedSizeMatrixTest::rotate180Test()
 {
-    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData);
+    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData2x4);
 
-    matrix = matrix.rotated180();
-    verifyToDemoData(matrix, demoDataRotated180);
+    matrix = matrix.asRotated180();
+    verifyData(matrix, demoData2x4Rotated180);
 
-    matrix = matrix.rotated180();
-    verifyToDemoData(matrix, demoData);
+    matrix = matrix.asRotated180();
+    verifyData(matrix, demoData2x4);
 }
 
 QTEST_APPLESS_MAIN(QFixedSizeMatrixTest)

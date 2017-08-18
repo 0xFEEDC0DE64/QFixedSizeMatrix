@@ -12,6 +12,12 @@ TARGET = tst_qfixedsizematrixtest
 CONFIG   += console
 CONFIG   -= app_bundle
 
+CONFIG += c++14
+win32-g++ {
+   QMAKE_CXXFLAGS_CXX14 = -std=c++14
+   QMAKE_CXXFLAGS_GNUCXX14 = -std=c++14
+}
+
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use

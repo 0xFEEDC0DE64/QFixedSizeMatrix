@@ -9,24 +9,29 @@ class FixedSizeMatrix
 {
 public:
     FixedSizeMatrix();
-    FixedSizeMatrix(const std::array<std::array<T, width>, height> &data);
+    FixedSizeMatrix(const std::array<std::array<T, width>, height>& data);
     FixedSizeMatrix(const FixedSizeMatrix<T, width, height> &other);
 
-    FixedSizeMatrix<T, width, height>& operator=(const FixedSizeMatrix<T, width, height>& other);
-    FixedSizeMatrix<T, width, height>& operator=(const std::array<std::array<T, width>, height> &data);
+    auto& operator=(const FixedSizeMatrix<T, width, height>& other);
+    auto& operator=(const std::array<std::array<T, width>, height>& data);
 
-    bool operator==(const FixedSizeMatrix<T, width, height>& other) const;
-    bool operator!=(const FixedSizeMatrix<T, width, height>& other) const;
+    auto operator==(const FixedSizeMatrix<T, width, height>& other) const;
+    auto operator!=(const FixedSizeMatrix<T, width, height>& other) const;
 
-    T& operator()(unsigned int x, unsigned int y);
-    const T& operator()(unsigned int x, unsigned int y) const;
+    auto& operator()(unsigned int x, unsigned int y);
+    const auto& operator()(unsigned int x, unsigned int y) const;
 
-    const T& at(unsigned int x, unsigned int y);
-    void set(unsigned int x, unsigned int y, const T &value);
+    void rotateLeft();
+    void rotateRight();
+    void rotate180();
+    void mirrorHorizontally();
+    void mirrorVertically();
 
-    FixedSizeMatrix<T, height, width> rotatedLeft() const;
-    FixedSizeMatrix<T, height, width> rotatedRight() const;
-    FixedSizeMatrix<T, width, height> rotated180() const;
+    auto asRotatedLeft() const;
+    auto asRotatedRight() const;
+    auto asRotated180() const;
+    auto asMirroredHorizontally() const;
+    auto asMirroredVertically() const;
 
 private:
     std::array<std::array<T, width>, height> m_data;
@@ -36,13 +41,13 @@ template<typename T, unsigned int width, unsigned int height>
 FixedSizeMatrix<T, width, height>::FixedSizeMatrix() {}
 
 template<typename T, unsigned int width, unsigned int height>
-FixedSizeMatrix<T, width, height>::FixedSizeMatrix(const std::array<std::array<T, width>, height> &data) : m_data(data) {}
+FixedSizeMatrix<T, width, height>::FixedSizeMatrix(const std::array<std::array<T, width>, height>& data) : m_data(data) {}
 
 template<typename T, unsigned int width, unsigned int height>
-FixedSizeMatrix<T, width, height>::FixedSizeMatrix(const FixedSizeMatrix<T, width, height> &other) : m_data(other.m_data) {}
+FixedSizeMatrix<T, width, height>::FixedSizeMatrix(const FixedSizeMatrix<T, width, height>& other) : m_data(other.m_data) {}
 
 template<typename T, unsigned int width, unsigned int height>
-FixedSizeMatrix<T, width, height> &FixedSizeMatrix<T, width, height>::operator=(const FixedSizeMatrix<T, width, height> &other)
+auto& FixedSizeMatrix<T, width, height>::operator=(const FixedSizeMatrix<T, width, height>& other)
 {
     if(&other != this)
         m_data = other.m_data;
@@ -50,20 +55,26 @@ FixedSizeMatrix<T, width, height> &FixedSizeMatrix<T, width, height>::operator=(
 }
 
 template<typename T, unsigned int width, unsigned int height>
-FixedSizeMatrix<T, width, height> &FixedSizeMatrix<T, width, height>::operator=(const std::array<std::array<T, width>, height> &data)
+auto& FixedSizeMatrix<T, width, height>::operator=(const std::array<std::array<T, width>, height>& data)
 {
     m_data = data;
     return *this;
 }
 
 template<typename T, unsigned int width, unsigned int height>
-bool FixedSizeMatrix<T, width, height>::operator==(const FixedSizeMatrix<T, width, height> &other) const { return m_data == other.m_data; }
+auto FixedSizeMatrix<T, width, height>::operator==(const FixedSizeMatrix<T, width, height>& other) const
+{
+    return m_data == other.m_data;
+}
 
 template<typename T, unsigned int width, unsigned int height>
-bool FixedSizeMatrix<T, width, height>::operator!=(const FixedSizeMatrix<T, width, height> &other) const { return m_data != other.m_data; }
+auto FixedSizeMatrix<T, width, height>::operator!=(const FixedSizeMatrix<T, width, height>& other) const
+{
+    return m_data != other.m_data;
+}
 
 template<typename T, unsigned int width, unsigned int height>
-T &FixedSizeMatrix<T, width, height>::operator()(unsigned int x, unsigned int y)
+auto& FixedSizeMatrix<T, width, height>::operator()(unsigned int x, unsigned int y)
 {
     assert(x < width);
     assert(y < height);
@@ -71,7 +82,7 @@ T &FixedSizeMatrix<T, width, height>::operator()(unsigned int x, unsigned int y)
 }
 
 template<typename T, unsigned int width, unsigned int height>
-const T &FixedSizeMatrix<T, width, height>::operator()(unsigned int x, unsigned int y) const
+const auto& FixedSizeMatrix<T, width, height>::operator()(unsigned int x, unsigned int y) const
 {
     assert(x < width);
     assert(y < height);
@@ -79,23 +90,41 @@ const T &FixedSizeMatrix<T, width, height>::operator()(unsigned int x, unsigned 
 }
 
 template<typename T, unsigned int width, unsigned int height>
-const T &FixedSizeMatrix<T, width, height>::at(unsigned int x, unsigned int y)
+void FixedSizeMatrix<T, width, height>::rotateLeft()
 {
-    assert(x < width);
-    assert(y < height);
-    return m_data[y][x];
+    static_assert(width == height, "Rotating in place only works when width matches height");
+
+    //TODO
 }
 
 template<typename T, unsigned int width, unsigned int height>
-void FixedSizeMatrix<T, width, height>::set(unsigned int x, unsigned int y, const T &value)
+void FixedSizeMatrix<T, width, height>::rotateRight()
 {
-    assert(x < width);
-    assert(y < height);
-    m_data[y][x] = value;
+    static_assert(width == height, "Rotating in place only works when width matches height");
+
+    //TODO
 }
 
 template<typename T, unsigned int width, unsigned int height>
-FixedSizeMatrix<T, height, width> FixedSizeMatrix<T, width, height>::rotatedLeft() const
+void FixedSizeMatrix<T, width, height>::rotate180()
+{
+    //TODO
+}
+
+template<typename T, unsigned int width, unsigned int height>
+void FixedSizeMatrix<T, width, height>::mirrorHorizontally()
+{
+    //TODO
+}
+
+template<typename T, unsigned int width, unsigned int height>
+void FixedSizeMatrix<T, width, height>::mirrorVertically()
+{
+    //TODO
+}
+
+template<typename T, unsigned int width, unsigned int height>
+auto FixedSizeMatrix<T, width, height>::asRotatedLeft() const
 {
     std::array<std::array<T, height>, width> data;
 
@@ -107,7 +136,7 @@ FixedSizeMatrix<T, height, width> FixedSizeMatrix<T, width, height>::rotatedLeft
 }
 
 template<typename T, unsigned int width, unsigned int height>
-FixedSizeMatrix<T, height, width> FixedSizeMatrix<T, width, height>::rotatedRight() const
+auto FixedSizeMatrix<T, width, height>::asRotatedRight() const
 {
     std::array<std::array<T, height>, width> data;
 
@@ -119,7 +148,7 @@ FixedSizeMatrix<T, height, width> FixedSizeMatrix<T, width, height>::rotatedRigh
 }
 
 template<typename T, unsigned int width, unsigned int height>
-FixedSizeMatrix<T, width, height> FixedSizeMatrix<T, width, height>::rotated180() const
+auto FixedSizeMatrix<T, width, height>::asRotated180() const
 {
     std::array<std::array<T, width>, height> data;
 
@@ -128,6 +157,18 @@ FixedSizeMatrix<T, width, height> FixedSizeMatrix<T, width, height>::rotated180(
             data[height-y-1][width-x-1] = m_data[y][x];
 
     return FixedSizeMatrix<T, width, height>(data);
+}
+
+template<typename T, unsigned int width, unsigned int height>
+auto FixedSizeMatrix<T, width, height>::asMirroredHorizontally() const
+{
+    //TODO
+}
+
+template<typename T, unsigned int width, unsigned int height>
+auto FixedSizeMatrix<T, width, height>::asMirroredVertically() const
+{
+    //TODO
 }
 
 #endif // FIXEDSIZEMATRIX_H
