@@ -3,6 +3,7 @@
 
 #include <array>
 #include <assert.h>
+#include <algorithm>
 
 template<typename T, unsigned int width, unsigned int height>
 class FixedSizeMatrix
@@ -108,19 +109,33 @@ void FixedSizeMatrix<T, width, height>::rotateRight()
 template<typename T, unsigned int width, unsigned int height>
 void FixedSizeMatrix<T, width, height>::rotate180()
 {
-    //TODO
+    //for(unsigned int y = 0; y < height / 2; y++)
+    //    for(unsigned int x = 0; x < width; x++)
+    //        std::swap(m_data[height-y-1][width-x-1], m_data[y][x]);
+
+    mirrorHorizontally();
+    mirrorVertically();
 }
 
 template<typename T, unsigned int width, unsigned int height>
 void FixedSizeMatrix<T, width, height>::mirrorHorizontally()
 {
-    //TODO
+    //for(unsigned int y = 0; y < height / 2; y++)
+    //    for(unsigned int x = 0; x < width; x++)
+    //        std::swap(m_data[height-y-1][x], m_data[y][x]);
+
+    std::reverse(std::begin(m_data), std::end(m_data));
 }
 
 template<typename T, unsigned int width, unsigned int height>
 void FixedSizeMatrix<T, width, height>::mirrorVertically()
 {
-    //TODO
+    //for(unsigned int y = 0; y < height; y++)
+    //    for(unsigned int x = 0; x < width / 2; x++)
+    //        std::swap(m_data[y][width-x-1], m_data[y][x]);
+
+    for(unsigned int y = 0; y < height; y++)
+        std::reverse(std::begin(m_data[y]), std::end(m_data[y]));
 }
 
 template<typename T, unsigned int width, unsigned int height>
