@@ -177,13 +177,25 @@ auto FixedSizeMatrix<T, width, height>::asRotated180() const
 template<typename T, unsigned int width, unsigned int height>
 auto FixedSizeMatrix<T, width, height>::asMirroredHorizontally() const
 {
-    //TODO
+    std::array<std::array<T, width>, height> data;
+
+    for(unsigned int y = 0; y < height; y++)
+        for(unsigned int x = 0; x < width; x++)
+            data[height-y-1][x] = m_data[y][x];
+
+    return FixedSizeMatrix<T, width, height>(data);
 }
 
 template<typename T, unsigned int width, unsigned int height>
 auto FixedSizeMatrix<T, width, height>::asMirroredVertically() const
 {
-    //TODO
+    std::array<std::array<T, width>, height> data;
+
+    for(unsigned int y = 0; y < height; y++)
+        for(unsigned int x = 0; x < width; x++)
+            data[y][width-x-1] = m_data[y][x];
+
+    return FixedSizeMatrix<T, width, height>(data);
 }
 
 #endif // FIXEDSIZEMATRIX_H

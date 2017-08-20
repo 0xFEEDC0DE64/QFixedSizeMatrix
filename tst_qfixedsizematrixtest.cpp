@@ -39,6 +39,8 @@ private:
     static const std::array<std::array<TestEnum, 4>, 4> demoData4x4RotatedLeft;
     static const std::array<std::array<TestEnum, 4>, 4> demoData4x4RotatedRight;
     static const std::array<std::array<TestEnum, 4>, 4> demoData4x4Rotated180;
+    static const std::array<std::array<TestEnum, 4>, 4> demoData4x4HorizontallyMirrored;
+    static const std::array<std::array<TestEnum, 4>, 4> demoData4x4VerticallyMirrored;
 
     template<unsigned int width, unsigned int height>
     void verifyData(const FixedSizeMatrix<TestEnum, width, height>& matrix,
@@ -70,31 +72,45 @@ const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 2>, 4> QFixedSizeMat
 };
 
 const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 4>, 4> QFixedSizeMatrixTest::demoData4x4 {
-    std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::ONE, TestEnum::ONE, TestEnum::ONE },
-    std::array<TestEnum, 4> { TestEnum::TWO, TestEnum::TWO, TestEnum::TWO, TestEnum::TWO },
-    std::array<TestEnum, 4> { TestEnum::THREE, TestEnum::THREE, TestEnum::THREE, TestEnum::THREE },
-    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::FOUR, TestEnum::FOUR, TestEnum::FOUR }
+    std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::ONE, TestEnum::TWO, TestEnum::TWO },
+    std::array<TestEnum, 4> { TestEnum::TWO, TestEnum::TWO, TestEnum::ONE, TestEnum::ONE },
+    std::array<TestEnum, 4> { TestEnum::THREE, TestEnum::THREE, TestEnum::FOUR, TestEnum::FOUR },
+    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::FOUR, TestEnum::THREE, TestEnum::THREE }
 };
 
 const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 4>, 4> QFixedSizeMatrixTest::demoData4x4RotatedLeft {
     std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::TWO, TestEnum::THREE, TestEnum::FOUR },
     std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::TWO, TestEnum::THREE, TestEnum::FOUR },
-    std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::TWO, TestEnum::THREE, TestEnum::FOUR },
-    std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::TWO, TestEnum::THREE, TestEnum::FOUR }
+    std::array<TestEnum, 4> { TestEnum::TWO, TestEnum::ONE, TestEnum::FOUR, TestEnum::THREE },
+    std::array<TestEnum, 4> { TestEnum::TWO, TestEnum::ONE, TestEnum::FOUR, TestEnum::THREE }
 };
 
 const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 4>, 4> QFixedSizeMatrixTest::demoData4x4RotatedRight {
-    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::THREE, TestEnum::TWO, TestEnum::ONE },
-    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::THREE, TestEnum::TWO, TestEnum::ONE },
-    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::THREE, TestEnum::TWO, TestEnum::ONE },
-    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::THREE, TestEnum::TWO, TestEnum::ONE }
+    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::FOUR, TestEnum::TWO, TestEnum::TWO },
+    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::FOUR, TestEnum::TWO, TestEnum::TWO },
+    std::array<TestEnum, 4> { TestEnum::THREE, TestEnum::THREE, TestEnum::ONE, TestEnum::ONE },
+    std::array<TestEnum, 4> { TestEnum::THREE, TestEnum::THREE, TestEnum::ONE, TestEnum::ONE }
 };
 
 const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 4>, 4> QFixedSizeMatrixTest::demoData4x4Rotated180 {
-    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::FOUR, TestEnum::FOUR, TestEnum::FOUR },
-    std::array<TestEnum, 4> { TestEnum::THREE, TestEnum::THREE, TestEnum::THREE, TestEnum::THREE },
-    std::array<TestEnum, 4> { TestEnum::TWO, TestEnum::TWO, TestEnum::TWO, TestEnum::TWO },
-    std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::ONE, TestEnum::ONE, TestEnum::ONE }
+    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::FOUR, TestEnum::THREE, TestEnum::THREE },
+    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::FOUR, TestEnum::THREE, TestEnum::THREE },
+    std::array<TestEnum, 4> { TestEnum::TWO, TestEnum::TWO, TestEnum::ONE, TestEnum::ONE },
+    std::array<TestEnum, 4> { TestEnum::TWO, TestEnum::TWO, TestEnum::ONE, TestEnum::ONE }
+};
+
+const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 4>, 4> QFixedSizeMatrixTest::demoData4x4HorizontallyMirrored {
+    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::FOUR, TestEnum::THREE, TestEnum::THREE },
+    std::array<TestEnum, 4> { TestEnum::THREE, TestEnum::THREE, TestEnum::FOUR, TestEnum::FOUR },
+    std::array<TestEnum, 4> { TestEnum::TWO, TestEnum::TWO, TestEnum::ONE, TestEnum::ONE },
+    std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::ONE, TestEnum::TWO, TestEnum::TWO }
+};
+
+const std::array<std::array<QFixedSizeMatrixTest::TestEnum, 4>, 4> QFixedSizeMatrixTest::demoData4x4VerticallyMirrored {
+    std::array<TestEnum, 4> { TestEnum::TWO, TestEnum::TWO, TestEnum::ONE, TestEnum::ONE },
+    std::array<TestEnum, 4> { TestEnum::ONE, TestEnum::ONE, TestEnum::TWO, TestEnum::TWO },
+    std::array<TestEnum, 4> { TestEnum::FOUR, TestEnum::FOUR, TestEnum::THREE, TestEnum::THREE },
+    std::array<TestEnum, 4> { TestEnum::THREE, TestEnum::THREE, TestEnum::FOUR, TestEnum::FOUR }
 };
 
 template<unsigned int width, unsigned int height>
@@ -198,12 +214,24 @@ void QFixedSizeMatrixTest::rotate180Test()
 
 void QFixedSizeMatrixTest::mirrorHorizontallyTest()
 {
-    //TODO
+    FixedSizeMatrix<TestEnum, 4, 4> matrix { demoData4x4 };
+
+    matrix.mirrorHorizontally();
+    verifyData(matrix, demoData4x4HorizontallyMirrored);
+
+    matrix.mirrorHorizontally();
+    verifyData(matrix, demoData4x4);
 }
 
 void QFixedSizeMatrixTest::mirrorVerticallyTest()
 {
-    //TODO
+    FixedSizeMatrix<TestEnum, 4, 4> matrix { demoData4x4 };
+
+    matrix.mirrorVertically();
+    verifyData(matrix, demoData4x4VerticallyMirrored);
+
+    matrix.mirrorVertically();
+    verifyData(matrix, demoData4x4);
 }
 
 void QFixedSizeMatrixTest::asRotatedLeftTest()
@@ -255,12 +283,24 @@ void QFixedSizeMatrixTest::asRotated180Test()
 
 void QFixedSizeMatrixTest::asMirroredHorizontally()
 {
-    //TODO
+    FixedSizeMatrix<TestEnum, 4, 4> matrix { demoData4x4 };
+
+    matrix = matrix.asMirroredHorizontally();
+    verifyData(matrix, demoData4x4HorizontallyMirrored);
+
+    matrix = matrix.asMirroredHorizontally();
+    verifyData(matrix, demoData4x4);
 }
 
 void QFixedSizeMatrixTest::asMirroredVertically()
 {
-    //TODO
+    FixedSizeMatrix<TestEnum, 4, 4> matrix { demoData4x4 };
+
+    matrix = matrix.asMirroredVertically();
+    verifyData(matrix, demoData4x4VerticallyMirrored);
+
+    matrix = matrix.asMirroredVertically();
+    verifyData(matrix, demoData4x4);
 }
 
 QTEST_APPLESS_MAIN(QFixedSizeMatrixTest)
