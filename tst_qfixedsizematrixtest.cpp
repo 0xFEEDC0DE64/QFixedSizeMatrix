@@ -14,11 +14,20 @@ public:
 
 private Q_SLOTS:
     void constructorTest();
-    void assignmentTest();
-    void comparisonTest();
+    void copyConstructorTest();
+    void assignmentOperatorTest();
+    void equalsOperatorTest();
+    void notEqualsOperatorTest();
     void rotateLeftTest();
     void rotateRightTest();
     void rotate180Test();
+    void mirrorHorizontallyTest();
+    void mirrorVerticallyTest();
+    void asRotatedLeftTest();
+    void asRotatedRightTest();
+    void asRotated180Test();
+    void asMirroredHorizontally();
+    void asMirroredVertically();
 
 private:
     static const std::array<std::array<TestEnum, 2>, 4> demoData2x4;
@@ -99,21 +108,40 @@ void QFixedSizeMatrixTest::verifyData(const FixedSizeMatrix<QFixedSizeMatrixTest
 
 void QFixedSizeMatrixTest::constructorTest()
 {
-    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData2x4);
+    FixedSizeMatrix<TestEnum, 2, 4> matrix { demoData2x4 };
     verifyData(matrix, demoData2x4);
 }
 
-void QFixedSizeMatrixTest::assignmentTest()
+void QFixedSizeMatrixTest::copyConstructorTest()
 {
-    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData2x4);
+    FixedSizeMatrix<TestEnum, 2, 4> matrix { demoData2x4 };
+    FixedSizeMatrix<TestEnum, 2, 4> otherMatrix { matrix };
+    verifyData(matrix, demoData2x4);
+}
+
+void QFixedSizeMatrixTest::assignmentOperatorTest()
+{
+    FixedSizeMatrix<TestEnum, 2, 4> matrix { demoData2x4 };
     FixedSizeMatrix<TestEnum, 2, 4> other;
     other = matrix;
     verifyData(other, demoData2x4);
 }
 
-void QFixedSizeMatrixTest::comparisonTest()
+void QFixedSizeMatrixTest::equalsOperatorTest()
 {
-    FixedSizeMatrix<TestEnum, 2, 4> matrix0(demoData2x4);
+    FixedSizeMatrix<TestEnum, 2, 4> matrix0 { demoData2x4 };
+    FixedSizeMatrix<TestEnum, 2, 4> matrix1;
+
+    QVERIFY2(!(matrix0 == matrix1), "");
+
+    matrix1 = FixedSizeMatrix<TestEnum, 2, 4> { demoData2x4 };
+
+    QVERIFY2(matrix0 == matrix1, "");
+}
+
+void QFixedSizeMatrixTest::notEqualsOperatorTest()
+{
+    FixedSizeMatrix<TestEnum, 2, 4> matrix0 { demoData2x4 };
     FixedSizeMatrix<TestEnum, 2, 4> matrix1;
 
     QVERIFY2(matrix0 != matrix1, "");
@@ -125,25 +153,80 @@ void QFixedSizeMatrixTest::comparisonTest()
 
 void QFixedSizeMatrixTest::rotateLeftTest()
 {
-    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData2x4);
-    FixedSizeMatrix<TestEnum, 4, 2> rotatedContainer;
+    FixedSizeMatrix<TestEnum, 4, 4> matrix { demoData4x4 };
 
-    rotatedContainer = matrix.asRotatedLeft();
-    verifyData(rotatedContainer, demoData2x4RotatedLeft);
+    matrix.rotateLeft();
+    verifyData(matrix, demoData4x4RotatedLeft);
 
-    matrix = rotatedContainer.asRotatedLeft();
-    verifyData(matrix, demoData2x4Rotated180);
+    matrix.rotateLeft();
+    verifyData(matrix, demoData4x4Rotated180);
 
-    rotatedContainer = matrix.asRotatedLeft();
-    verifyData(rotatedContainer, demoData2x4RotatedRight);
+    matrix.rotateLeft();
+    verifyData(matrix, demoData4x4RotatedRight);
 
-    matrix = rotatedContainer.asRotatedLeft();
-    verifyData(matrix, demoData2x4);
+    matrix.rotateLeft();
+    verifyData(matrix, demoData4x4);
 }
 
 void QFixedSizeMatrixTest::rotateRightTest()
 {
-    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData2x4);
+    FixedSizeMatrix<TestEnum, 4, 4> matrix { demoData4x4 };
+
+    matrix.rotateRight();
+    verifyData(matrix, demoData4x4RotatedRight);
+
+    matrix.rotateRight();
+    verifyData(matrix, demoData4x4Rotated180);
+
+    matrix.rotateRight();
+    verifyData(matrix, demoData4x4RotatedLeft);
+
+    matrix.rotateRight();
+    verifyData(matrix, demoData4x4);
+}
+
+void QFixedSizeMatrixTest::rotate180Test()
+{
+    FixedSizeMatrix<TestEnum, 2, 4> matrix { demoData2x4 };
+
+    matrix.rotate180();
+    verifyData(matrix, demoData2x4Rotated180);
+
+    matrix.rotate180();
+    verifyData(matrix, demoData2x4);
+}
+
+void QFixedSizeMatrixTest::mirrorHorizontallyTest()
+{
+    //TODO
+}
+
+void QFixedSizeMatrixTest::mirrorVerticallyTest()
+{
+    //TODO
+}
+
+void QFixedSizeMatrixTest::asRotatedLeftTest()
+{
+    FixedSizeMatrix<TestEnum, 2, 4> matrix { demoData2x4 };
+    FixedSizeMatrix<TestEnum, 4, 2> rotatedContainer;
+
+    rotatedContainer = matrix.asRotatedLeft();
+    verifyData(rotatedContainer, demoData2x4RotatedLeft);
+
+    matrix = rotatedContainer.asRotatedLeft();
+    verifyData(matrix, demoData2x4Rotated180);
+
+    rotatedContainer = matrix.asRotatedLeft();
+    verifyData(rotatedContainer, demoData2x4RotatedRight);
+
+    matrix = rotatedContainer.asRotatedLeft();
+    verifyData(matrix, demoData2x4);
+}
+
+void QFixedSizeMatrixTest::asRotatedRightTest()
+{
+    FixedSizeMatrix<TestEnum, 2, 4> matrix { demoData2x4 };
     FixedSizeMatrix<TestEnum, 4, 2> rotatedContainer;
 
     rotatedContainer = matrix.asRotatedRight();
@@ -159,15 +242,25 @@ void QFixedSizeMatrixTest::rotateRightTest()
     verifyData(matrix, demoData2x4);
 }
 
-void QFixedSizeMatrixTest::rotate180Test()
+void QFixedSizeMatrixTest::asRotated180Test()
 {
-    FixedSizeMatrix<TestEnum, 2, 4> matrix(demoData2x4);
+    FixedSizeMatrix<TestEnum, 2, 4> matrix { demoData2x4 };
 
     matrix = matrix.asRotated180();
     verifyData(matrix, demoData2x4Rotated180);
 
     matrix = matrix.asRotated180();
     verifyData(matrix, demoData2x4);
+}
+
+void QFixedSizeMatrixTest::asMirroredHorizontally()
+{
+    //TODO
+}
+
+void QFixedSizeMatrixTest::asMirroredVertically()
+{
+    //TODO
 }
 
 QTEST_APPLESS_MAIN(QFixedSizeMatrixTest)

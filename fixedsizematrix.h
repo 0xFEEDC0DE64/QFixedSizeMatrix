@@ -8,18 +8,18 @@ template<typename T, unsigned int width, unsigned int height>
 class FixedSizeMatrix
 {
 public:
-    FixedSizeMatrix();
+    explicit FixedSizeMatrix();
     FixedSizeMatrix(const std::array<std::array<T, width>, height>& data);
     FixedSizeMatrix(const FixedSizeMatrix<T, width, height> &other);
 
     auto& operator=(const FixedSizeMatrix<T, width, height>& other);
     auto& operator=(const std::array<std::array<T, width>, height>& data);
 
-    auto operator==(const FixedSizeMatrix<T, width, height>& other) const;
-    auto operator!=(const FixedSizeMatrix<T, width, height>& other) const;
+    [[nodiscard]] auto operator==(const FixedSizeMatrix<T, width, height>& other) const;
+    [[nodiscard]] auto operator!=(const FixedSizeMatrix<T, width, height>& other) const;
 
-    auto& operator()(unsigned int x, unsigned int y);
-    const auto& operator()(unsigned int x, unsigned int y) const;
+    [[nodiscard]] auto& operator()(unsigned int x, unsigned int y);
+    [[nodiscard]] const auto& operator()(unsigned int x, unsigned int y) const;
 
     void rotateLeft();
     void rotateRight();
@@ -27,11 +27,11 @@ public:
     void mirrorHorizontally();
     void mirrorVertically();
 
-    auto asRotatedLeft() const;
-    auto asRotatedRight() const;
-    auto asRotated180() const;
-    auto asMirroredHorizontally() const;
-    auto asMirroredVertically() const;
+    [[nodiscard]] auto asRotatedLeft() const;
+    [[nodiscard]] auto asRotatedRight() const;
+    [[nodiscard]] auto asRotated180() const;
+    [[nodiscard]] auto asMirroredHorizontally() const;
+    [[nodiscard]] auto asMirroredVertically() const;
 
 private:
     std::array<std::array<T, width>, height> m_data;
