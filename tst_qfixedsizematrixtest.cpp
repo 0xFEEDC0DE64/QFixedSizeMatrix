@@ -132,7 +132,7 @@ void QFixedSizeMatrixTest::copyConstructorTest()
 {
     FixedSizeMatrix<TestEnum, 2, 4> matrix { demoData2x4 };
     FixedSizeMatrix<TestEnum, 2, 4> otherMatrix { matrix };
-    verifyData(matrix, demoData2x4);
+    verifyData(otherMatrix, demoData2x4);
 }
 
 void QFixedSizeMatrixTest::assignmentOperatorTest()
